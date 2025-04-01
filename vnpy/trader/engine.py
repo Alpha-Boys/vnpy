@@ -1,5 +1,6 @@
 import logging
 from logging import Logger
+from logging.handlers import RotatingFileHandler
 import smtplib
 import os
 import traceback
@@ -67,6 +68,11 @@ class MainEngine:
 
         os.chdir(TRADER_DIR)    # Change working directory
         self.init_engines()     # Initialize function engines
+        self.global_setting = SETTINGS
+
+    def init_global_setting(self, setting: dict = None):
+        self.global_setting.update(setting)
+
 
     def add_engine(self, engine_class: Any) -> "BaseEngine":
         """
@@ -319,9 +325,8 @@ class LogEngine(BaseEngine):
         log_path: Path = get_folder_path("log")
         file_path: Path = log_path.joinpath(filename)
 
-        file_handler: logging.FileHandler = logging.FileHandler(
-            file_path, mode="a", encoding="utf8"
-        )
+        # file_handler: logging.FileHandler = logging.FileHandler(file_path, mode="a", encoding="utf8")
+        file_handler = RotatingFileHandler(file_path, mode='a', maxBytes=10 << 20, backupCount=5, encoding="utf8", delay=False)
         file_handler.setLevel(self.level)
         file_handler.setFormatter(self.formatter)
         self.logger.addHandler(file_handler)
