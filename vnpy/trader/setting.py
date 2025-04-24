@@ -15,7 +15,7 @@ SETTINGS: Dict[str, Any] = {
     "log.active": True,
     "log.level": CRITICAL,
     "log.console": True,
-    "log.file": "",
+    "log.file": True,
 
     "email.server": "smtp.qq.com",
     "email.port": 465,
@@ -46,7 +46,7 @@ SETTINGS: Dict[str, Any] = {
     "genus.child_target": "",
 }
 
-# # Load global setting from json file.
+# Load global setting from json file.
 SETTING_FILENAME: str = "vt_setting.json"
 try:
     SETTINGS.update(load_json(SETTING_FILENAME))
@@ -55,5 +55,6 @@ except Exception as e:
 
 
 def get_settings(prefix: str = "") -> Dict[str, Any]:
-    prefix_length = len(prefix)
-    return {k[prefix_length:]: v for k, v in SETTINGS.items() if k.startswith(prefix)}
+    prefix_length: int = len(prefix)
+    settings = {k[prefix_length:]: v for k, v in SETTINGS.items() if k.startswith(prefix)}
+    return settings
