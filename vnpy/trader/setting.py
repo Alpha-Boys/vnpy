@@ -24,27 +24,23 @@ SETTINGS: dict = {
     "email.sender": "",
     "email.receiver": "",
 
-    "rqdata.username": "",
-    "rqdata.password": "",
+    "datafeed.name": "",
+    "datafeed.username": "",
+    "datafeed.password": "",
 
-    "database.timezone": get_localzone(),
-    "database.driver": "sqlite",                # see database.Driver
-    "database.database": "database.db",         # for sqlite, use this as filepath
-    "database.host": "localhost",
-    "database.port": 3306,
-    "database.user": "root",
-    "database.password": "",
-    "database.authentication_source": "admin",  # for mongodb
-
-    "genus.parent_host": "",
-    "genus.parent_port": "",
-    "genus.parent_sender": "",
-    "genus.parent_target": "",
-    "genus.child_host": "",
-    "genus.child_port": "",
-    "genus.child_sender": "",
-    "genus.child_target": "",
+    "database.timezone": get_localzone_name(),
+    "database.name": "sqlite",
+    "database.database": "database.db",
+    "database.host": "",
+    "database.port": 0,
+    "database.user": "",
+    "database.password": ""
 }
+
+
+# Load global setting from json file.
+SETTING_FILENAME: str = "vt_setting.json"
+SETTINGS.update(load_json(SETTING_FILENAME))
 
 # Load global setting from json file.
 SETTING_FILENAME: str = "vt_setting.json"
@@ -55,7 +51,7 @@ except Exception as e:
     print(e)
 
 
-def get_settings(prefix: str = "") -> Dict[str, Any]:
+def get_settings(prefix: str = "") -> dict[str, any]:
     prefix_length: int = len(prefix)
     settings = {k[prefix_length:]: v for k, v in SETTINGS.items() if k.startswith(prefix)}
     return settings
