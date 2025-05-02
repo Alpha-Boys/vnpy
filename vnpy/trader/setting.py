@@ -27,7 +27,7 @@ SETTINGS: Dict[str, Any] = {
     "rqdata.username": "",
     "rqdata.password": "",
 
-    "database.timezone": get_localzone().zone,
+    "database.timezone": get_localzone(),
     "database.driver": "sqlite",                # see database.Driver
     "database.database": "database.db",         # for sqlite, use this as filepath
     "database.host": "localhost",

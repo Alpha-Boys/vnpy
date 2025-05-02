@@ -7,7 +7,8 @@ from .object import (
     OrderData,
     TradeData,
     PositionData,
-    OrderRequest
+    OrderRequest,
+    AccountData
 )
 from .constant import Direction, Offset, Exchange
 
