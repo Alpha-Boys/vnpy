@@ -27,7 +27,7 @@ SETTINGS: dict = {
     "rqdata.username": "",
     "rqdata.password": "",
 
-    "database.timezone": get_localzone(),
+    "database.timezone": get_localzone_name(),
     "database.driver": "sqlite",                # see database.Driver
     "database.database": "database.db",         # for sqlite, use this as filepath
     "database.host": "localhost",
@@ -55,7 +55,7 @@ except Exception as e:
     print(e)
 
 
-def get_settings(prefix: str = "") -> Dict[str, Any]:
+def get_settings(prefix: str = "") -> dict[str, any]:
     prefix_length: int = len(prefix)
     settings = {k[prefix_length:]: v for k, v in SETTINGS.items() if k.startswith(prefix)}
     return settings
