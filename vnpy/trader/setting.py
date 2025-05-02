@@ -3,12 +3,12 @@ Global setting of VN Trader.
 """
 
 from logging import CRITICAL
-from typing import Dict, Any
-from tzlocal import get_localzone
+from tzlocal import get_localzone_name
 
 from .utility import load_json
 
-SETTINGS: Dict[str, Any] = {
+
+SETTINGS: dict = {
     "font.family": "微软雅黑",
     "font.size": 12,
 
@@ -48,6 +48,7 @@ SETTINGS: Dict[str, Any] = {
 
 # Load global setting from json file.
 SETTING_FILENAME: str = "vt_setting.json"
+SETTINGS.update(load_json(SETTING_FILENAME))
 try:
     SETTINGS.update(load_json(SETTING_FILENAME))
 except Exception as e:
